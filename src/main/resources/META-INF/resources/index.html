@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Range Alert Monitor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">📊 Real-Time Alert Monitor</h1>
+        <p class="text-gray-600">Configure metric ranges and monitor alerts in real-time</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">⚙️ Set Range Configuration</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="text" id="userId" placeholder="User ID" value="user1"
+                   class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <input type="text" id="metricType" placeholder="Metric Type" value="cpu"
+                   class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <input type="number" id="minValue" placeholder="Min Value" value="60" step="0.1"
+                   class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <input type="number" id="maxValue" placeholder="Max Value" value="80" step="0.1"
+                   class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+        <button onclick="setRange()"
+                class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+            Set Range
+        </button>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-gray-800">🔔 Live Alerts</h2>
+            <div id="status" class="px-3 py-1 rounded-full text-sm font-medium bg-gray-200 text-gray-700">
+                Disconnected
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <button onclick="connectAlerts()"
+                    class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+                Connect
+            </button>
+            <button onclick="disconnectAlerts()"
+                    class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+                Disconnect
+            </button>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Alerts</h3>
+        <div id="alerts" class="space-y-3 max-h-96 overflow-y-auto"></div>
+        <div id="no-alerts" class="text-center text-gray-500 py-8">
+            No alerts yet. Configure a range and connect to start monitoring.
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.3s ease-out;
+    }
+</style>
+</body>
+</html>
